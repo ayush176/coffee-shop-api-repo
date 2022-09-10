@@ -7,25 +7,27 @@ import javax.persistence.*;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String customerName;
     private String customerEmail;
     private String customerPhone;
     private String itemNames; //tea, coffee
     private String itemQuantities;// 1,3
-    private String totalAmount;
+    private String itemCosts; //10,30
+    private int totalAmount;
 
     public Order() {
     }
 
-    public Order(long id, String customerName, String customerEmail, String customerPhone, String itemNames, String itemQuantities, String totalAmount) {
+    public Order(long id, String customerName, String customerEmail, String customerPhone, String itemNames, String itemQuantities, String itemCosts, int totalAmount) {
         this.id = id;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPhone = customerPhone;
         this.itemNames = itemNames;
         this.itemQuantities = itemQuantities;
+        this.itemCosts = itemCosts;
         this.totalAmount = totalAmount;
     }
 
@@ -77,11 +79,19 @@ public class Order {
         this.itemQuantities = itemQuantities;
     }
 
-    public String getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getItemCosts() {
+        return itemCosts;
+    }
+
+    public void setItemCosts(String itemCosts) {
+        this.itemCosts = itemCosts;
     }
 }

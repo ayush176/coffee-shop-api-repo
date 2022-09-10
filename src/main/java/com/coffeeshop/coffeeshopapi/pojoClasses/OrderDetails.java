@@ -11,9 +11,9 @@ public class OrderDetails {
     private String customerPhone;
 //    private String itemNames;
 //    private String itemPrices;
-    private String totalAmount;
+    private int totalAmount;
 
-    List<ItemDetail> itemDetails;  // [{quantity:3,name:tea}, {quantity:2, name:coffee}]
+    List<ItemDetail> itemDetails;  // [{quantity:3,name:tea,cost:10}, {quantity:2, name:coffee,cost:30}]
 
     public OrderDetails() {
     }
@@ -50,11 +50,11 @@ public class OrderDetails {
         this.customerPhone = customerPhone;
     }
 
-    public String getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -66,7 +66,7 @@ public class OrderDetails {
         this.itemDetails = itemDetails;
     }
 
-    public OrderDetails(long id, String customerName, String customerEmail, String customerPhone, String totalAmount, List<ItemDetail> itemDetails) {
+    public OrderDetails(long id, String customerName, String customerEmail, String customerPhone, int totalAmount, List<ItemDetail> itemDetails) {
         this.id = id;
         this.customerName = customerName;
         this.customerEmail = customerEmail;

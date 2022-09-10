@@ -11,4 +11,8 @@ public interface OrderService {
 
     public OrderDetails addOrder(OrderDetails orderDetails);
 
+    public OrderDetails updateOrder(OrderDetails orderDetails);
+
+    public void deleteOrder(long id);
+
 }

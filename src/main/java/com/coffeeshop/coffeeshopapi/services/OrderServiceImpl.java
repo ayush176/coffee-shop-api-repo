@@ -4,7 +4,6 @@ import com.coffeeshop.coffeeshopapi.dao.OrderDao;
 import com.coffeeshop.coffeeshopapi.entities.Order;
 import com.coffeeshop.coffeeshopapi.pojoClasses.ItemDetail;
 import com.coffeeshop.coffeeshopapi.pojoClasses.OrderDetails;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +32,25 @@ public class OrderServiceImpl implements OrderService {
         return orderDetails;
     }
 
+    @Override
     public OrderDetails addOrder(OrderDetails orderDetails) {
         Order order = convertOrderDetailsIntoOrder(orderDetails);
         Order response = orderDao.save(order);
 
         return convertOrderIntoOrderDetials(response);
+    }
+
+    @Override
+    public OrderDetails updateOrder(OrderDetails orderDetails) {
+        Order order = convertOrderDetailsIntoOrder(orderDetails);
+        Order response = orderDao.save(order);
+
+        return convertOrderIntoOrderDetials(response);
+    }
+
+
+    public void deleteOrder(long id) {
+        orderDao.deleteById(id);
     }
 
 
@@ -52,11 +65,12 @@ public class OrderServiceImpl implements OrderService {
 
         String[] itemNames = order.getItemNames().split(",");
         String[] itemQuantities = order.getItemQuantities().split(",");
+        String[] itemCosts = order.getItemCosts().split(",");
 
         List<ItemDetail> itemDetails = new ArrayList<>();
 
         for(int i=0;i< itemNames.length;i++){
-            itemDetails.add(new ItemDetail(Integer.parseInt(itemQuantities[i].trim()), itemNames[i].trim()));
+            itemDetails.add(new ItemDetail(Integer.parseInt(itemQuantities[i].trim()), itemNames[i].trim(), Integer.parseInt(itemCosts[i].trim()) ));
         }
 
         orderDetails.setItemDetails(itemDetails);
@@ -75,17 +89,21 @@ public class OrderServiceImpl implements OrderService {
 
         StringBuilder itemNames = new StringBuilder();
         StringBuilder itemQuantities = new StringBuilder();
+        StringBuilder itemCosts = new StringBuilder();
 
         for(int i=0; i<orderDetails.getItemDetails().size(); i++) {
             if(i>0) {
                 itemNames.append(",");
                 itemQuantities.append(",");
+                itemCosts.append(",");
             }
             itemNames.append(orderDetails.getItemDetails().get(i).getName());
             itemQuantities.append(orderDetails.getItemDetails().get(i).getQuantity());
+            itemCosts.append(orderDetails.getItemDetails().get(i).getPrice());
         }
         order.setItemNames(String.valueOf(itemNames));
         order.setItemQuantities(String.valueOf(itemQuantities));
+        order.setItemCosts(String.valueOf(itemCosts));
 
         return order;
     }
