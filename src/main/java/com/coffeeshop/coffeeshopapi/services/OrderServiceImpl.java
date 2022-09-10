@@ -16,7 +16,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
-    public OrderServiceImpl() {
+    public OrderServiceImpl(OrderDao orderDao) {
+        this.orderDao = orderDao;
     }
 
     @Override
