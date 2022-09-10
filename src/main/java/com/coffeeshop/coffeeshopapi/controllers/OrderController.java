@@ -18,8 +18,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
     @GetMapping("/orders")
-    public List<OrderDetails> getCourses(){
+    public List<OrderDetails> getAllOrders(){
         return this.orderService.getAllOrders();
     }
 
